@@ -11,8 +11,6 @@ void print_int(const char *format, ...)
 	va_list args;
 
 	va_start(args, format);
-	int val, div;
-	int digt;
 
 	while (*format != '\0')
 	{
@@ -21,10 +19,12 @@ void print_int(const char *format, ...)
 			format++;
 			if (*format == 'd' || *format == 'i')
 			{
+				int val;
+				int div;
 				val = va_arg(args, int);
 				if (val < 0)
 				{
-					_putchar('-');
+					putchar('-');
 					val = -val;
 				}
 				div = 1;
@@ -34,8 +34,9 @@ void print_int(const char *format, ...)
 				}
 				while (div > 0)
 				{
+					int digt;
 					digt = val / div;
-					_putchar(digt + '0');
+					putchar(digt + '0');
 					val %= div;
 					div /= 10;
 				}
@@ -43,9 +44,22 @@ void print_int(const char *format, ...)
 		}
 		else
 		{
-			_putchar(*format);
+			putchar(*format);
 		}
 		format++;
 	}
 	va_end(args);
+}
+/**
+ * main - entry point for function.
+ * Return: always 0
+ */
+int main(void)
+{
+	int n1 = 33;
+	int n2 = -231;
+
+	print_int("%d\n", n1);
+	print_int("%i\n", n2);
+	return (0);
 }
