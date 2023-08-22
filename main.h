@@ -59,6 +59,10 @@ typedef struct flag_s
 } flag_t;
 
 int _printf(const char *format, ...);
+int print_nums(int m, char *outp, int pos);
+int print_int(va_list l, char *outp, int pos);
+int print_single_int(va_list l, char *outp, int pos);
+int _putchar(char c);
 
 /* Conversion Specifier Functions */
 unsigned int convert_c(va_list args, buffer_t *output,
