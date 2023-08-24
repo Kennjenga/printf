@@ -1,4 +1,5 @@
 #include "main.h"
+void print_buff(char buffer[], int *buff_indx);
 
 /**
  * _printf - selects the correct function to print.
@@ -40,11 +41,11 @@ int _printf(const char *format, ...)
 			precision = get_precision(format, &j, list);
 			size = get_size(format, &j);
 			++j;
-			printed = handle_print(format, &j, list, buffer,
+			printd = handle_print(format, &j, list, buffer,
 				flags, width, precision, size);
-			if (printed == -1)
+			if (printd == -1)
 				return (-1);
-			printed_chars += printed;
+			printd_chars += printd;
 		}
 	}
 
@@ -52,7 +53,7 @@ int _printf(const char *format, ...)
 
 	va_end(list);
 
-	return (printed_chars);
+	return (printd_chars);
 }
 
 /**
