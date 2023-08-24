@@ -1,39 +1,69 @@
 #include "main.h"
-#include "main.h"
+
 /**
- * _printf - is a function that selects the correct function to print.
- * @format: identifier to look for.
- * Return: the length of the string.
+ * _printf - selects the correct function to print.
+ * @format: identifier to check for
+ * Return: string length
  */
-int _printf(const char *const format, ...)
+
+int _printf(const char *format, ...)
 {
-	convert_match m[] = {
-		{"%s", printf_string}, {"%c", printf_char}, {"%%", printf_37}, {"%i", printf_int}, {"%d", printf_dec}, {"%r", printf_srev}, {"%R", printf_rot13}, {"%b", printf_bin}, {"%u", printf_unsigned}, {"%o", printf_oct}, {"%x", printf_hex}, {"%X", printf_HEX}, {"%S", printf_exclusive_string}, {"%p", printf_pointer}};
+	int j;
+	int printd = 0, printd_chars = 0;
+	int width, flags, precision, size, buff_indx = 0;
+	va_list list;
+	char buffer[BUFF_SIZE];
 
-	va_list args;
-	int i = 0, j, len = 0;
-
-	va_start(args, format);
-	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
-		return (-1);
-Here:
-	while (format[i] != '\0')
+	if (format == NULL)
 	{
-		j = 13;
-		while (j >= 0)
-		{
-			if (m[j].id[0] == format[i] && m[j].id[1] == format[i + 1])
-			{
-				len += m[j].f(args);
-				i = i + 2;
-				goto Here;
-			}
-			j--;
-		}
-		_putchar(format[i]);
-		len++;
-		i++;
+		return (-1);
 	}
-	va_end(args);
-	return (len);
+
+	va_start(list, format);
+
+	for (j = 0; format && format[j] != '\0'; j++)
+	{
+		if (format[j] != '%')
+		{
+			buffer[buff_indx++] = format[j];
+			if (buff_indx == BUFF_SIZE)
+			{
+				print_buff(buffer, &buff_indx);
+			}
+			printd_chars++;
+		}
+		else
+		{
+			print_buff(buffer, &buff_indx);
+			flags = get_flags(format, &j);
+			width = get_width(format, &j, list);
+			precision = get_precision(format, &j, list);
+			size = get_size(format, &j);
+			++j;
+			printed = handle_print(format, &j, list, buffer,
+				flags, width, precision, size);
+			if (printed == -1)
+				return (-1);
+			printed_chars += printed;
+		}
+	}
+
+	print_buff(buffer, &buff_indx);
+
+	va_end(list);
+
+	return (printed_chars);
+}
+
+/**
+ * print_buff - Prints contents of the buff
+ * @buffer: chars array
+ * @buff_indx: index where to add next char
+ */
+void print_buff(char buffer[], int *buff_indx)
+{
+	if (*buff_indx > 0)
+		write(1, &buffer[0], *buff_indx);
+
+	*buff_indx = 0;
 }
