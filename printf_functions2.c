@@ -51,9 +51,7 @@ int print_pointer(va_list types, char buffer[],
 	}
 	else if (flags & F_SPACE)
 		extra_c = ' ', len++;
-
 	indx++;
-
 	return (write_pointer(buffer, indx, len,
 		width, flags, padd, extra_c, padd_start));
 }
@@ -146,11 +144,10 @@ int print_reverse(va_list types, char buffer[],
 /************************* PRINTS A STRING IN ROT13 *************************/
 /**
  * print_rot13string - function that print a string in rot13.
- * 
  * @types: a list of arguments
  * @buffer: a buffer array to handle print
  * @flags: active flags
- * @width: get width
+ *  @width: get width
  * @precision: Precision specification
  * @size: Size specifier
  * Return: returns the numbers of chars printed
