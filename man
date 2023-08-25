@@ -1,0 +1,12 @@
+ _printf - selects the correct function to print.
+ _putchar - writes the character c to stdout
+flags.c - Calculates active flags
+handle_print - function that prints an argument based on its type
+precision.c - gets the precision for printing
+printf_functions.c - print int, string, char, percent, binary
+printf_functions1.c - print unsigned, hexadecimal ,octal
+printf_functions2.c - pointer, reverse, rot13
+size.c -Calculates the size to cast the argument
+utils.c - checks for digits,char ,hex
+width.c - Calculates the width
+write_handler.c - writes string , numbers and buffers
